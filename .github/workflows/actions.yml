@@ -36,4 +36,4 @@ jobs:
         run: scp -i ${{ secrets.PEM_KEY }} -r ./scp ec2-user@${{ secrets.EUREKA_HOST }}:/home/ec2-user/
 
       - name: Connect and deploy
-        run: ssh eureka ./deploy/deploy.sh
+        run: ssh eureka "./deploy/deploy.sh; exit"
