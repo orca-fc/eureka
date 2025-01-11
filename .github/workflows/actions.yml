@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature/modify-actions # 삭제 예정
 
 jobs:
   build-and-deploy:
@@ -23,17 +24,3 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build -x test
-
-      - name: Copy about deploy files
-        run: |
-          rm -rf ./scp
-          mkdir scp
-          mkdir scp/resources
-          cp $(ls ./build/libs/*.jar | grep -v "plain") ./scp
-          cp ./src/main/resources/*.yml ./scp/resources
-
-      - name: Copy to EC2
-        run: scp -i ${{ secrets.PEM_KEY }} -r ./scp ec2-user@${{ secrets.EUREKA_HOST }}:/home/ec2-user/
-
-      - name: Connect and deploy
-        run: ssh eureka "./deploy/deploy.sh; exit"
