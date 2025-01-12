@@ -36,3 +36,8 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_EUREKA }}:latest
+
+      - name: Deploy
+        run: |
+          kubectl rollout restart deployment/${{secrets.KUBE_DEPLOY_EUREKA}}
+          kubectl rollout status deployment/${{secrets.KUBE_DEPLOY_EUREKA}}
