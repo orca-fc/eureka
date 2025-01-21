@@ -38,10 +38,11 @@ jobs:
           elif [[ $GITHUB_REF == 'refs/heads/main' ]]; then
             TAG="prod"
           fi
-          echo TAG = $TAG
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_EUREKA }}:$TAG .
+        run: |
+          echo TAG = $TAG
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_EUREKA }}:$TAG .
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_EUREKA }}:$TAG
