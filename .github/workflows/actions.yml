@@ -33,7 +33,7 @@ jobs:
 
       - name: Set tag by branch
         run: |
-          if [[ $GITHUB_REF == 'refs/heads/dev' ]]; then
+          if [[ $GITHUB_REF == 'refs/heads/develop' ]]; then
             TAG="dev"
           elif [[ $GITHUB_REF == 'refs/heads/main' ]]; then
             TAG="prod"
